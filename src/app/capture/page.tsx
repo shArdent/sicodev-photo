@@ -56,6 +56,8 @@ const CapturePage = () => {
   const takePhoto = async () => {
     if (photoCount >= 4) {
       sessionStorage.setItem("capturedPhotos", JSON.stringify(capturedPhotos));
+
+      
       router.push("/success");
       return;
     }
@@ -166,6 +168,7 @@ const CapturePage = () => {
             </Button>
             <Button
               onClick={takePhoto}
+              disabled={!!countdown}
               className="bg-white text-purple-600 hover:bg-gray-100 text-lg px-8 py-3 rounded-full font-semibold"
             >
               {photoCount === 0
