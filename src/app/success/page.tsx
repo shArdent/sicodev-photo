@@ -3,10 +3,15 @@
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { photoServices } from "@/lib/services/photo";
+import { services } from "@/lib/services";
+import { AxiosError } from "axios";
+import client from "@/lib/services/client";
 
 const SuccessPage = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const router = useRouter();
+  const [imgUrl, setImgUrl] = useState<string|null>("");
 
   useEffect(() => {
     const photos = JSON.parse(sessionStorage.getItem("capturedPhotos") || "[]");
@@ -47,16 +52,37 @@ const SuccessPage = () => {
         };
       });
     };
+
   }, []);
 
-  const downloadImage = () => {
+  const downloadImage = async () => {
+
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const link = document.createElement("a");
-    link.download = "photobooth.png"; // nama file hasil download
-    link.href = canvas.toDataURL("image/png"); // convert canvas ke base64 PNG
-    link.click();
+    try {
+      const {url, method} = services.photo.upload();
+
+
+      await client({
+        url,
+        method,
+        data: {
+          image: canvas.toDataURL("image/png"),
+        }
+      }).then((res) => {
+        const {data: data} = res
+        router.push(`/get-qr/${data.data.id}`); // Ganti dengan ID atau path yang sesuai
+      });
+
+
+    } catch(err) {
+      if (err instanceof AxiosError) {
+        console.log(err.response?.data);
+      }
+    }
+
+
   };
 
   return (
@@ -90,13 +116,16 @@ const SuccessPage = () => {
             </Button>
           </div>
         </div>
+        
 
         {/* Right Side - Photobooth Strip */}
         <div className="flex justify-center lg:justify-end">
+          {JSON.stringify(imgUrl)}
           <div className="relative">
             <canvas ref={canvasRef} className="border rounded-lg shadow-lg" />
           </div>
         </div>
+
       </div>
     </main>
   );
