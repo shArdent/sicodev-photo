@@ -22,6 +22,7 @@ export default function Page() {
         const {data: data} = res;
         console.log(data.data);
         setImgUrl(data.data.image);
+        downloadImage(data.data.image);
       });
     } catch (err) {
       if (err instanceof AxiosError) {
@@ -29,7 +30,7 @@ export default function Page() {
       }
     }
   };
-  const downloadImage = () => {
+  const downloadImage = (imgUrl?: string) => {
     if (!imgUrl) return;
 
     fetch(imgUrl)
@@ -66,7 +67,7 @@ export default function Page() {
         imgUrl && (
           <div className="flex  gap-4 justify-center lg:justify-start">
             <Button
-              onClick={downloadImage}
+              onClick={() => downloadImage(imgUrl)}
               size="lg"
               className="bg-white text-purple-600 hover:bg-gray-100 px-8 py-3 text-lg font-semibold rounded-full cursor-pointer"
             >
