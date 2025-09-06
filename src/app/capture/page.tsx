@@ -18,6 +18,7 @@ const CapturePage = () => {
   const [capturedPhotos, setCapturedPhotos] = useState<string[]>([]);
   const [isFlashing, setIsFlashing] = useState(false);
   const [countdown, setCountdown] = useState<number | null>(null);
+  const [isLoading, setLoading] = useState<boolean>(false);
 
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -28,9 +29,12 @@ const CapturePage = () => {
     const startCamera = async () => {
       try {
         const mediaStream = await navigator.mediaDevices.getUserMedia({
-          video: { facingMode: "user" },
+          video: { facingMode: "user", frameRate: { ideal: 60, max: 60 } },
           audio: false,
         });
+        if (videoRef.current) {
+          videoRef.current.style.transform = "180deg";
+        }
         setStream(mediaStream);
       } catch (err) {
         console.error("Error accessing camera:", err);
@@ -54,6 +58,7 @@ const CapturePage = () => {
   const wait = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
   const takePhoto = async () => {
+    setLoading(true);
     if (photoCount >= 4) {
       sessionStorage.setItem("capturedPhotos", JSON.stringify(capturedPhotos));
 
@@ -91,12 +96,20 @@ const CapturePage = () => {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+        // Flip horizontal agar tidak mirrored
+    ctx.save();
+    ctx.translate(canvas.width, 0);
+    ctx.scale(-1, 1);
     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    ctx.restore();
+
+    // ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
     const photoDataUrl = canvas.toDataURL("image/png");
 
     setCapturedPhotos((prev) => [...prev, photoDataUrl]);
     const newCount = photoCount + 1;
     setPhotoCount(newCount);
+    setLoading(false);
   };
 
   return (
@@ -120,7 +133,8 @@ const CapturePage = () => {
                 autoPlay
                 playsInline
                 muted
-                className="w-full h-full object-cover"
+                
+                className="w-full h-full object-cover transform scale-x-[-1]"
               />
               {/* Countdown */}
               {countdown && (
@@ -168,14 +182,16 @@ const CapturePage = () => {
             </Button>
             <Button
               onClick={takePhoto}
-              disabled={!!countdown}
+              disabled={!!countdown || isLoading}
               className="bg-white text-purple-600 hover:bg-gray-100 text-lg px-8 py-3 rounded-full font-semibold"
             >
               {photoCount === 0
                 ? "Start Capture (4 Photos)"
                 : photoCount >= 4
-                  ? "Done"
-                  : "Take next"}
+                  ? isLoading
+                    ? "Loading..."
+                    : "Finish"
+                  : !!countdown ? "Capturing..." : "Take next"}
             </Button>
           </div>
         </div>
