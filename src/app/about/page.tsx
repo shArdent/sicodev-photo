@@ -1,6 +1,13 @@
 import { teamMembers } from '@/constants/team'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'About Us - Photobooth by Siliwangi Code Developer (SICODEV)',
+  description:
+    'Meet our team at SicoDev - a web developer community that facilitates students in exploring and developing web development skills.',
+}
 
 export default function AboutPage() {
   return (
@@ -48,10 +55,12 @@ export default function AboutPage() {
                     className="w-full h-full object-cover absolute aspect-square inset-0 object-center"
                   />
                   <div className="absolute bottom-2 sm:bottom-3 md:bottom-4 left-0 w-full text-center z-30 px-2">
-                    <h3 className="font-bold text-white text-xs sm:text-sm">
+                    <h3 className="font-bold text-white text-sm sm:text-lg italic">
                       {member.role}
                     </h3>
-                    <p className="text-gray-400 text-xs">{member.name}</p>
+                    <p className="text-white text-xs font-medium">
+                      {member.name}
+                    </p>
                   </div>
                 </div>
               ))}
@@ -79,10 +88,12 @@ export default function AboutPage() {
                     className="w-full h-full object-cover absolute aspect-square inset-0 object-center"
                   />
                   <div className="absolute bottom-2 sm:bottom-3 md:bottom-4 left-0 w-full text-center z-30 px-2">
-                    <h3 className="font-bold text-white text-xs sm:text-sm">
+                    <h3 className="font-bold text-white text-sm sm:text-lg italic">
                       {member.role}
                     </h3>
-                    <p className="text-gray-400 text-xs">{member.name}</p>
+                    <p className="text-white text-xs font-medium">
+                      {member.name}
+                    </p>
                   </div>
                 </div>
               ))}
@@ -113,10 +124,12 @@ export default function AboutPage() {
                       className="w-full h-full object-cover absolute aspect-square inset-0 object-center"
                     />
                     <div className="absolute bottom-2 sm:bottom-3 md:bottom-4 left-0 w-full text-center z-30 px-2">
-                      <h3 className="font-bold text-white text-xs sm:text-sm">
+                      <h3 className="font-bold text-white text-sm sm:text-lg italic">
                         {member.role}
                       </h3>
-                      <p className="text-gray-400 text-xs">{member.name}</p>
+                      <p className="text-white text-xs font-medium">
+                        {member.name}
+                      </p>
                     </div>
                   </div>
                 ))}
@@ -146,10 +159,12 @@ export default function AboutPage() {
                       className="w-full h-full object-cover absolute aspect-square inset-0 object-center"
                     />
                     <div className="absolute bottom-2 sm:bottom-3 md:bottom-4 left-0 w-full text-center z-30 px-2">
-                      <h3 className="font-bold text-white text-xs sm:text-sm">
+                      <h3 className="font-bold text-white text-sm sm:text-lg italic">
                         {member.role}
                       </h3>
-                      <p className="text-gray-400 text-xs">{member.name}</p>
+                      <p className="text-white text-xs font-medium">
+                        {member.name}
+                      </p>
                     </div>
                   </div>
                 ))}
@@ -183,10 +198,12 @@ export default function AboutPage() {
                       className="w-full h-full object-cover absolute aspect-square inset-0 object-center"
                     />
                     <div className="absolute bottom-2 sm:bottom-3 md:bottom-4 left-0 w-full text-center z-30 px-2">
-                      <h3 className="font-bold text-white text-xs sm:text-sm">
+                      <h3 className="font-bold text-white text-sm sm:text-lg italic">
                         {member.role}
                       </h3>
-                      <p className="text-gray-400 text-xs">{member.name}</p>
+                      <p className="text-white text-xs font-medium">
+                        {member.name}
+                      </p>
                     </div>
                   </div>
                 ))}
