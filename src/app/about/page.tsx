@@ -1,46 +1,13 @@
-const teamMembers = [
-  { name: "Ketua", role: "Jeni Adi Hidayat", image: "/team-member-one.png" },
-  { name: "Wakil Ketua", role: "Diva Marshelano AS", image: "/team-member-2.png" },
-  {
-    name: "Bendahara 1",
-    role: "Naiman Husain S.",
-    image: "/diverse-team-member-3.png",
-  },
-  { name: "Bendahara 2", role: "Ristin Iman A.", image: "/team-member-4.png" },
-  { name: "Sekretaris 1", role: "Alya Azhar N.", image: "/team-member-5.jpg" },
-  { name: "Sekretaris 2", role: "Keumala Tri R.", image: "/team-member-6.jpg" },
-  { name: "Koor. Humas", role: "Gita Syafira A.", image: "/team-member-7.jpg" },
-  { name: "Staff Humas", role: "Raihana Afiyah", image: "/team-member-8.jpg" },
-  { name: "Staff Humas", role: "Wida Senja", image: "/team-member-9.jpg" },
-  {
-    name: "Staff Humas",
-    role: "Alfira Indah B.",
-    image: "/team-member-10.jpg",
-  },
-  {
-    name: "Koor. Media",
-    role: "Najwa Syafira N.S",
-    image: "/team-member-11.jpg",
-  },
-  { name: "Staff Media", role: "Dimas Putra M.", image: "/team-member-12.jpg" },
-  { name: "Staff Media", role: "Nazwa Aulia S.", image: "/team-member-13.jpg" },
-  { name: "Staff Media", role: "Jovita Edgina", image: "/team-member-14.jpg" },
-  {
-    name: "Koor. Research",
-    role: "Rizqa Hany S.",
-    image: "/team-member-15.jpg",
-  },
-  {
-    name: "Staff Research",
-    role: "Farid Firdaus",
-    image: "/team-member-16.jpg",
-  },
-  {
-    name: "Staff Research",
-    role: "Ridho Awaludin",
-    image: "/team-member-17.jpg",
-  },
-];
+import { teamMembers } from '@/constants/team'
+import { cn } from '@/lib/utils'
+import Image from 'next/image'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'About Us - Photobooth by Siliwangi Code Developer (SICODEV)',
+  description:
+    'Meet our team at SicoDev - a web developer community that facilitates students in exploring and developing web development skills.',
+}
 
 export default function AboutPage() {
   return (
@@ -52,16 +19,9 @@ export default function AboutPage() {
             Get to know <span className="text-purple-400">About Us!</span>
           </h1>
 
-          <p className="text-sm text-gray-300 max-w-4xl mx-auto leading-relaxed">
-            COnsecteturmcididuntloremellitipsumsedalaboreslloremutlaborealiquaconseceturmcididuntdolab
-            orealiquaulllamcotempordiduntutlaboreetdoloremagnaaliquaUtenimadminimveniamquisnostrudexer
-            citationulllamcolaborisnisutaliquipexeacommodoconsequatDuisauteiruredolorinreprehenderitinvol
-            uptatevelitessecillumfugiatnullapariaturExcepteursintoccaecatcupidatatnonproidentsuninculpaq
-            uiofficiadeseruntmollitanimidestlaborumSedutperspiciatisundeomnisistenatuserrorsitvolupta
-            temaccusantiumdoloremquelaudantiumtotamremaperiameaqueipsaquaeabilloinventoreveritatisetquas
-            iarchitectobeataevitatedicasuntexplicaboNemoenimipsumvoluptatemquiavoluptassitaspernaturaut
-            oditautfugitsedquiaconsequunturmagnilolorestosquirationevoluptatemnsequinesciuntnequeporro
-            quisquamestquidoloremipsumquiadolorsitametconsecteturadipiscivelit
+          <p className="text-sm md:text-base text-gray-300 max-w-4xl mx-auto leading-relaxed">
+            Mari bergabung dengan kami untuk bersama-sama membangun masa depan
+            teknologi yang lebih baik!
           </p>
         </div>
 
@@ -71,29 +31,186 @@ export default function AboutPage() {
             Meet <span className="text-purple-400">Our Team</span>
           </h2>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {teamMembers.map((member, index) => (
-              <div key={index} className="text-center space-y-3">
-                <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-purple-500 to-blue-600 p-1">
-                  <div className="w-full h-full rounded-xl overflow-hidden bg-gray-800">
-                    <img
-                      src={member.image || "/placeholder.svg"}
-                      alt={member.name}
-                      className="w-full h-full object-cover"
-                    />
+          <div className="space-y-4 sm:space-y-6 md:space-y-8">
+            {/* Leadership Row - Ketua dan Wakil Ketua */}
+            <div className="hidden md:flex justify-center items-center flex-wrap gap-4 sm:gap-6 md:gap-8">
+              {teamMembers.slice(0, 2).map((member, index) => (
+                <div
+                  key={index + 2}
+                  className="basis-1/2 md:basis-1/4 relative text-center w-full h-auto md:w-[200px] md:h-[200px] lg:w-full lg:h-auto max-w-[182px] md:max-w-[266px] aspect-square overflow-hidden"
+                >
+                  <Image
+                    src="/team-card.svg"
+                    width={500}
+                    height={500}
+                    alt="team card"
+                    className={cn(
+                      'w-full h-full',
+                      index % 2 === 0 ? 'rotate-0' : 'rotate-90'
+                    )}
+                  />
+                  <img
+                    src={member.image || '/placeholder.svg'}
+                    alt={member.name}
+                    className="w-full h-full object-cover absolute aspect-square inset-0 object-center"
+                  />
+                  <div className="absolute bottom-2 sm:bottom-3 md:bottom-4 left-0 w-full text-center z-30 px-2">
+                    <h3 className="font-bold text-white text-sm sm:text-lg italic">
+                      {member.role}
+                    </h3>
+                    <p className="text-white text-xs font-medium">
+                      {member.name}
+                    </p>
                   </div>
                 </div>
-                <div>
-                  <h3 className="font-bold text-white text-sm">
-                    {member.name}
-                  </h3>
-                  <p className="text-gray-400 text-xs">{member.role}</p>
+              ))}
+            </div>
+
+            <div className="grid md:hidden grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
+              {teamMembers.slice(0, 2).map((member, index) => (
+                <div
+                  key={index + 2}
+                  className="relative text-center w-full h-auto md:w-[200px] md:h-[200px] lg:w-full lg:h-auto aspect-square overflow-hidden"
+                >
+                  <Image
+                    src="/team-card.svg"
+                    width={500}
+                    height={500}
+                    alt="team card"
+                    className={cn(
+                      'w-full h-full',
+                      index % 2 === 0 ? 'rotate-0' : 'rotate-90'
+                    )}
+                  />
+                  <img
+                    src={member.image || '/placeholder.svg'}
+                    alt={member.name}
+                    className="w-full h-full object-cover absolute aspect-square inset-0 object-center"
+                  />
+                  <div className="absolute bottom-2 sm:bottom-3 md:bottom-4 left-0 w-full text-center z-30 px-2">
+                    <h3 className="font-bold text-white text-sm sm:text-lg italic">
+                      {member.role}
+                    </h3>
+                    <p className="text-white text-xs font-medium">
+                      {member.name}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+
+            {/* Rest of Team Members */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
+              {teamMembers
+                .slice(2, teamMembers.length - 3)
+                .map((member, index) => (
+                  <div
+                    key={index + 2}
+                    className="relative text-center w-full h-auto md:w-[200px] md:h-[200px] lg:w-full lg:h-auto aspect-square overflow-hidden"
+                  >
+                    <Image
+                      src="/team-card.svg"
+                      width={500}
+                      height={500}
+                      alt="team card"
+                      className={cn(
+                        'w-full h-full',
+                        index % 2 === 0 ? 'rotate-0' : 'rotate-90'
+                      )}
+                    />
+                    <img
+                      src={member.image || '/placeholder.svg'}
+                      alt={member.name}
+                      className="w-full h-full object-cover absolute aspect-square inset-0 object-center"
+                    />
+                    <div className="absolute bottom-2 sm:bottom-3 md:bottom-4 left-0 w-full text-center z-30 px-2">
+                      <h3 className="font-bold text-white text-sm sm:text-lg italic">
+                        {member.role}
+                      </h3>
+                      <p className="text-white text-xs font-medium">
+                        {member.name}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+            </div>
+
+            <div className="hidden md:flex justify-center items-center flex-wrap gap-4 sm:gap-6 md:gap-8">
+              {teamMembers
+                .slice(teamMembers.length - 3)
+                .map((member, index) => (
+                  <div
+                    key={index + 2}
+                    className="basis-1/2 md:basis-1/4 relative text-center w-full h-auto md:w-[200px] md:h-[200px] lg:w-full lg:h-auto max-w-[182px] md:max-w-[266px] aspect-square overflow-hidden"
+                  >
+                    <Image
+                      src="/team-card.svg"
+                      width={500}
+                      height={500}
+                      alt="team card"
+                      className={cn(
+                        'w-full h-full',
+                        index % 2 === 0 ? 'rotate-0' : 'rotate-90'
+                      )}
+                    />
+                    <img
+                      src={member.image || '/placeholder.svg'}
+                      alt={member.name}
+                      className="w-full h-full object-cover absolute aspect-square inset-0 object-center"
+                    />
+                    <div className="absolute bottom-2 sm:bottom-3 md:bottom-4 left-0 w-full text-center z-30 px-2">
+                      <h3 className="font-bold text-white text-sm sm:text-lg italic">
+                        {member.role}
+                      </h3>
+                      <p className="text-white text-xs font-medium">
+                        {member.name}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+            </div>
+
+            <div className="grid md:hidden grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
+              {teamMembers
+                .slice(teamMembers.length - 3)
+                .map((member, index) => (
+                  <div
+                    key={index + 2}
+                    className={cn(
+                      'relative text-center w-full h-auto md:w-[200px] md:h-[200px] lg:w-full lg:h-auto max-w-[266px] aspect-square overflow-hidden'
+                      // index === 2 &&
+                      //   'col-span-2 justify-self-center max-w-[192px]'
+                    )}
+                  >
+                    <Image
+                      src="/team-card.svg"
+                      width={500}
+                      height={500}
+                      alt="team card"
+                      className={cn(
+                        'w-full h-full',
+                        index % 2 === 0 ? 'rotate-0' : 'rotate-90'
+                      )}
+                    />
+                    <img
+                      src={member.image || '/placeholder.svg'}
+                      alt={member.name}
+                      className="w-full h-full object-cover absolute aspect-square inset-0 object-center"
+                    />
+                    <div className="absolute bottom-2 sm:bottom-3 md:bottom-4 left-0 w-full text-center z-30 px-2">
+                      <h3 className="font-bold text-white text-sm sm:text-lg italic">
+                        {member.role}
+                      </h3>
+                      <p className="text-white text-xs font-medium">
+                        {member.name}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+            </div>
           </div>
         </div>
       </div>
     </main>
-  );
+  )
 }
