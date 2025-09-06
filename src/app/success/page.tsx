@@ -3,7 +3,6 @@
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { photoServices } from "@/lib/services/photo";
 import { services } from "@/lib/services";
 import { AxiosError } from "axios";
 import client from "@/lib/services/client";
@@ -12,6 +11,7 @@ const SuccessPage = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const router = useRouter();
   const [imgUrl, setImgUrl] = useState<string|null>("");
+  const [isLoading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     const photos = JSON.parse(sessionStorage.getItem("capturedPhotos") || "[]");
@@ -56,7 +56,7 @@ const SuccessPage = () => {
   }, []);
 
   const downloadImage = async () => {
-
+    setLoading(true);
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -101,10 +101,11 @@ const SuccessPage = () => {
           <div className="flex  gap-4 justify-center lg:justify-start">
             <Button
               onClick={downloadImage}
+              disabled={isLoading}
               size="lg"
               className="bg-white text-purple-600 hover:bg-gray-100 px-8 py-3 text-lg font-semibold rounded-full cursor-pointer"
             >
-              Download Photo
+              {isLoading ? "Loading..." : "Download Photo"}
             </Button>
 
             <Button
