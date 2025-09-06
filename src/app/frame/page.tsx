@@ -1,5 +1,11 @@
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
+import Image from 'next/image'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Frame - Photobooth by Siliwangi Code Developer (SICODEV)',
+  description:
+    'Choose your photobooth frame and capture your smile with Temu Warga 2025 frame!',
+}
 
 const FramePage = () => {
   return (
@@ -29,7 +35,7 @@ const FramePage = () => {
         </div>
       </div>
     </main>
-  );
-};
+  )
+}
 
-export default FramePage;
+export default FramePage
