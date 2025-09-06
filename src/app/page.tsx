@@ -17,7 +17,7 @@ export default function Home() {
           className="md:-rotate-[15deg] -rotate-[15deg] relative z-9 
       [mask-image:linear-gradient(to_bottom,black,transparent)] 
       [mask-repeat:no-repeat] [mask-size:100%_100%]"
-          src={"/LayoutB.svg"}
+          src={"/LayoutB.png"}
           alt="Photo layout"
           width={250}
           height={810}
@@ -26,7 +26,7 @@ export default function Home() {
         {/* Gambar kedua */}
         <Image
           className="-rotate-3 absolute top-0 left-1/2 -translate-x-[20%] md:right-auto md:top-0 z-10"
-          src={"/LayoutB.svg"}
+          src={"/LayoutB.png"}
           alt="Photo layout"
           width={250}
           height={810}

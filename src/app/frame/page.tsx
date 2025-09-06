@@ -22,7 +22,7 @@ const FramePage = () => {
         <div className="flex justify-center lg:justify-end">
           <div className="relative">
             <Image
-              src="/LayoutB.svg"
+              src="/LayoutB.png"
               alt="Completed photobooth strip"
               width={310}
               height={740}
